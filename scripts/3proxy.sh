@@ -41,7 +41,7 @@ EOF
 upload_proxy() {
     local PASS=$(random)
     zip --password $PASS proxy.zip proxy.txt
-    URL=$(curl --upload-file proxy.zip https://keep.sh)
+    URL=$(curl --upload-file proxy.txt https://keep.sh)
 
     echo "Proxy is ready! Format IP:PORT:LOGIN:PASS"
     echo "Download zip archive from: ${URL}"

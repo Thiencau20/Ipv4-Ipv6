@@ -106,14 +106,14 @@ gen_data >$WORKDIR/data.txt
 
 gen_3proxy >/usr/local/etc/3proxy/3proxy.cfg
 
-#cat >>/etc/rc.local <<EOF
-#bash ${WORKDIR}/boot_iptables.sh
-#bash ${WORKDIR}/boot_ifconfig.sh
-#ulimit -n 10048
+cat >>/etc/rc.local <<EOF
+bash ${WORKDIR}/boot_iptables.sh
+bash ${WORKDIR}/boot_ifconfig.sh
+ulimit -n 10048
 service 3proxy start
-#EOF
+EOF
 
-#bash /etc/rc.local
+bash /etc/rc.local
 
 gen_proxy_file_for_user
 

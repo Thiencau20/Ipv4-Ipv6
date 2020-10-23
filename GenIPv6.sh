@@ -70,6 +70,8 @@ yum install epel-release && yum install 3proxy
 echo "Move 3Proxy v0.8.13"
 wget - O  'https://github.com/Thiencau20/Ipv4-Ipv6/raw/main/3proxy.tar.gz'
 tar -xvf 3proxy.tar.gz
+rm -rf 3proxy.tar.gz
+sudo chmod +x 3proxy
 cp 3proxy /usr/bin/
 
 echo "Generating IPv6"

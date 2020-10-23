@@ -65,7 +65,7 @@ EOF
 
 echo "Install 3Proxy"
 sudo yum -y install nano && yum -y install wget && yum -y install gcc make && yum -y install net-tools && yum -y install zip && yum -y install unzip
-yum install epel-release && yum install 3proxy
+yum -y install epel-release && yum -y install 3proxy
 
 echo "Move 3Proxy v0.8.13"
 wget - O  'https://github.com/Thiencau20/Ipv4-Ipv6/raw/main/3proxy.tar.gz'

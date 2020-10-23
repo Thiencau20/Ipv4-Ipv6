@@ -13,14 +13,20 @@ gen64() {
 
 gen_3proxy() {
     cat <<EOF
-daemon
+nserver 8.8.8.8
+nserver 8.8.4.4
 maxconn 1000
 nscache 65536
 timeouts 1 5 30 60 180 1800 15 60
-setgid 65535
-setuid 65535
-flush
-auth strong
+#setgid 65535
+#setuid 65535
+
+
+authcache user 60
+auth strong cache
+
+daemon
+
 users $(awk -F "/" 'BEGIN{ORS="";} {print $1 ":CL:" $2 " "}' ${WORKDATA})
 $(awk -F "/" '{print "auth strong\n" \
 "allow " $1 "\n" \
@@ -57,6 +63,15 @@ $(awk -F "/" '{print "ifconfig eth0 inet6 add " $5 "/64"}' ${WORKDATA})
 EOF
 }
 
+echo "Install 3Proxy"
+sudo yum install nano && yum install wget && yum -y install gcc make
+yum install epel-release && yum install 3proxy
+
+echo "Move 3Proxy v0.8.13"
+wget - O  'https://github.com/Thiencau20/Ipv4-Ipv6/raw/main/3proxy.tar.gz'
+tar -xvf 3proxy.tar.gz
+cp 3proxy /usr/bin/
+
 echo "Generating IPv6"
 
 echo "working folder = /home/proxy-installer"
@@ -75,7 +90,6 @@ read COUNT
 FIRST_PORT=10000
 LAST_PORT=$(($FIRST_PORT + $COUNT))
 
-
 gen_data >$WORKDIR/data.txt
 gen_ifconfig >$WORKDIR/boot_ifconfig.sh
 
@@ -87,8 +101,14 @@ gen_proxy_file_for_user
 
 upload_proxy
 
+echo "Set Firewall"
 
+firewall-cmd --zone=public --add-port=10000-$COUNT/tcp --permanent
+firewall-cmd --reload
 
+systemctl stop 3proxy
+systemctl start 3proxy
+service 3proxy status
 
 
 

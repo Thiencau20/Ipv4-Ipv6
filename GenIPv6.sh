@@ -28,8 +28,8 @@ auth strong cache
 daemon
 
 users $(awk -F "/" 'BEGIN{ORS="";} {print $1 ":CL:" $2 " "}' ${WORKDATA})
-$(awk -F "/" '{print "auth strong\n" \
-"allow " $1 "\n" \
+$(awk -F "/" '{print "auth none\n" \
+"#allow " $1 "\n" \
 "proxy -6 -n -a -p" $4 " -i" $3 " -e"$5"\n" \
 "flush\n"}' ${WORKDATA})
 EOF
@@ -105,7 +105,7 @@ upload_proxy
 
 echo "Set Firewall"
 
-firewall-cmd --zone=public --add-port=10000-$COUNT/tcp --permanent
+firewall-cmd --zone=public --add-port=10000-$LAST_PORT/tcp --permanent
 firewall-cmd --reload
 
 systemctl stop 3proxy

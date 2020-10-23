@@ -64,7 +64,7 @@ EOF
 }
 
 echo "Install 3Proxy"
-sudo yum install nano && yum install wget && yum -y install gcc make
+sudo yum install nano && yum install wget && yum -y install gcc make && yum install net-tools
 yum install epel-release && yum install 3proxy
 
 echo "Move 3Proxy v0.8.13"

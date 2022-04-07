@@ -111,28 +111,3 @@ firewall-cmd --reload
 systemctl stop 3proxy
 systemctl start 3proxy
 service 3proxy status
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
